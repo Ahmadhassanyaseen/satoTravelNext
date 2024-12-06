@@ -9,6 +9,7 @@ import {
   faTimesCircle,
   faCalendarCheck
 } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface UserStatsProps {
   userId: string;
@@ -34,7 +35,18 @@ interface BookingStats {
   }>;
 }
 
-const StatCard = ({ title, value, icon, color }) => (
+interface StatCardProps {
+  title: string;
+  value: number;
+  icon: IconDefinition;
+  color: string;
+}
+
+interface StatusBadgeProps {
+  status: 'pending' | 'confirmed' | 'cancelled';
+}
+
+const StatCard = ({ title, value, icon, color }: StatCardProps) => (
   <div className="bg-white rounded-lg shadow-md p-6">
     <div className="flex items-center justify-between">
       <div>
@@ -48,7 +60,7 @@ const StatCard = ({ title, value, icon, color }) => (
   </div>
 );
 
-const StatusBadge = ({ status }) => {
+const StatusBadge = ({ status }: StatusBadgeProps) => {
   const statusColors = {
     pending: 'bg-yellow-100 text-yellow-800',
     confirmed: 'bg-green-100 text-green-800',
@@ -203,7 +215,7 @@ const UserStats = ({ userId }: UserStatsProps) => {
                     {booking.guests}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <StatusBadge status={booking.status} />
+                    <StatusBadge status={booking.status as 'pending' | 'confirmed' | 'cancelled'} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     ¥{booking.totalPrice.toLocaleString()}

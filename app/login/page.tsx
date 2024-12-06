@@ -13,9 +13,15 @@ interface FormData {
   password: string;
 }
 
+interface Settings {
+  logo?: string;
+  websiteTitle?: string;
+  description?: string;
+}
+
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-  const [settings, setSettings] = useState<any>(null);
+  const [settings, setSettings] = useState<Settings | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",

@@ -3,13 +3,13 @@ import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  await dbConnect();
-
   try {
-    const user = await User.findById(params.id).select('-password');
+    await dbConnect();
+    const { id } = await params;
+    const user = await User.findById(id);
     
     if (!user) {
       return NextResponse.json(
@@ -29,13 +29,13 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  await dbConnect();
-
   try {
-    const body = await request.json();
+    await dbConnect();
+    const { id } = await params;
+    const body = await req.json();
     const { name, email, role, status } = body;
 
     // Validate input
@@ -49,7 +49,7 @@ export async function PUT(
     // Check if email is being changed and if it's already in use
     const existingUser = await User.findOne({ 
       email, 
-      _id: { $ne: params.id } 
+      _id: { $ne: id } 
     });
     
     if (existingUser) {
@@ -60,7 +60,7 @@ export async function PUT(
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      params.id,
+      id,
       { name, email, role, status },
       { new: true }
     ).select('-password');
@@ -83,13 +83,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  await dbConnect();
-
   try {
-    const deletedUser = await User.findByIdAndDelete(params.id);
+    await dbConnect();
+    const { id } = await params;
+    const deletedUser = await User.findByIdAndDelete(id);
     
     if (!deletedUser) {
       return NextResponse.json(

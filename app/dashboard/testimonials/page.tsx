@@ -28,8 +28,9 @@ export default function TestimonialsPage() {
       if (!response.ok) throw new Error('Failed to fetch testimonials');
       const data = await response.json();
       setTestimonials(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to load testimonials');
+      console.error('Error fetching testimonials:', error);
     } finally {
       setIsLoading(false);
     }
@@ -50,8 +51,9 @@ export default function TestimonialsPage() {
       
       toast.success('Testimonial deleted');
       fetchTestimonials();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to delete testimonial');
+      console.error('Error deleting testimonial:', error);
     }
   };
 

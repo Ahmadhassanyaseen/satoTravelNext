@@ -33,14 +33,15 @@ export default function SettingsPage() {
       if (!response.ok) throw new Error('Failed to fetch settings');
       const data = await response.json();
       setSettings(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to load settings');
+      console.error('Error fetching settings:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSaving(true);
 
@@ -55,14 +56,15 @@ export default function SettingsPage() {
 
       if (!response.ok) throw new Error('Failed to update settings');
       toast.success('Settings updated successfully');
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to update settings');
+      console.error('Error updating settings:', error);
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleImageUpload = (imageUrl) => {
+  const handleImageUpload = (imageUrl: string) => {
     setSettings(prev => ({ ...prev, logo: imageUrl }));
   };
 

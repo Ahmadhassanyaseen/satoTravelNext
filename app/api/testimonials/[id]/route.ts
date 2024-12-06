@@ -4,11 +4,12 @@ import Testimonial from "@/models/Testimonial";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const testimonial = await Testimonial.findById(params.id);
+    const { id } = await params;
+    const testimonial = await Testimonial.findById(id);
     if (!testimonial) {
       return NextResponse.json(
         { message: "Testimonial not found" },
@@ -18,7 +19,7 @@ export async function GET(
     return NextResponse.json(testimonial);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error fetching testimonial" },
+      { message: (error as Error).message || "Error fetching testimonial" },
       { status: 500 }
     );
   }
@@ -26,13 +27,14 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
+    const { id } = await params;
     const data = await req.json();
     const testimonial = await Testimonial.findByIdAndUpdate(
-      params.id,
+      id,
       data,
       { new: true, runValidators: true }
     );
@@ -45,7 +47,7 @@ export async function PUT(
     return NextResponse.json(testimonial);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error updating testimonial" },
+      { message: (error as Error).message || "Error updating testimonial" },
       { status: 500 }
     );
   }
@@ -53,11 +55,12 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const testimonial = await Testimonial.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const testimonial = await Testimonial.findByIdAndDelete(id);
     if (!testimonial) {
       return NextResponse.json(
         { message: "Testimonial not found" },
@@ -70,7 +73,7 @@ export async function DELETE(
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Error deleting testimonial" },
+      { message: (error as Error).message || "Error deleting testimonial" },
       { status: 500 }
     );
   }

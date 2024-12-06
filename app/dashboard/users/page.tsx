@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { userService, User, CreateUserData } from '@/app/services/api';
+import { userService, User } from '@/app/services/api';
 import { toast } from 'react-hot-toast';
 
 export default function UsersPage() {
@@ -17,8 +17,9 @@ export default function UsersPage() {
       setIsLoading(true);
       const data = await userService.getAllUsers();
       setUsers(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to fetch users');
+      console.error('Error fetching users:', error);
     } finally {
       setIsLoading(false);
     }
@@ -39,8 +40,9 @@ export default function UsersPage() {
         await userService.deleteUser(_id);
         toast.success('User deleted successfully');
         fetchUsers();
-      } catch (error) {
+      } catch (error: unknown) {
         toast.error('Failed to delete user');
+        console.error('Error deleting user:', error);
       }
     }
   };
@@ -131,8 +133,9 @@ export default function UsersPage() {
               }
               setIsModalOpen(false);
               fetchUsers();
-            } catch (error) {
+            } catch (error: unknown) {
               toast.error(selectedUser ? 'Failed to update user' : 'Failed to create user');
+              console.error('Error saving user:', error);
             }
           }}
         />
@@ -144,11 +147,19 @@ export default function UsersPage() {
 interface UserModalProps {
   user: User | null;
   onClose: () => void;
-  onSave: (user: CreateUserData) => void;
+  onSave: (user: User) => void;
+}
+
+interface UserFormData {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  status: 'active' | 'inactive';
 }
 
 function UserModal({ user, onClose, onSave }: UserModalProps) {
-  const [formData, setFormData] = useState<CreateUserData>({
+  const [formData, setFormData] = useState<UserFormData>({
     name: user?.name || '',
     email: user?.email || '',
     password: '',
@@ -166,7 +177,7 @@ function UserModal({ user, onClose, onSave }: UserModalProps) {
         </h3>
         <form onSubmit={(e) => {
           e.preventDefault();
-          onSave(formData);
+          onSave(formData as User);
         }}>
           <div className="space-y-4">
             <div>

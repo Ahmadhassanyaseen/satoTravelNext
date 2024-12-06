@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 
 const ActivitiesSection = () => {
   return (
@@ -24,7 +25,13 @@ const ActivitiesSection = () => {
             appreciate everyday beauty
           </h2>
           <div data-aos="fade-up" data-aos-duration="3000">
-            <img src="assets/images/locationPins.png" alt="" />
+            <Image 
+              src="/assets/images/locationPins.png" 
+              alt="Location pins"
+              width={500}
+              height={300}
+              priority
+            />
           </div>
         </div>
         <div className="flex items-start justify-center gap-10 text-left mt-20">

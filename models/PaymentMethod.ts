@@ -24,7 +24,7 @@ const PaymentMethodSchema = new mongoose.Schema({
 // Ensure only one default card
 PaymentMethodSchema.pre('save', async function(next) {
   if (this.isDefault) {
-    await this.constructor.updateMany(
+    await (this.constructor as typeof PaymentMethod).updateMany(
       { _id: { $ne: this._id } },
       { $set: { isDefault: false } }
     );

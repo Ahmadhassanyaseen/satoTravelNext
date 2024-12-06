@@ -36,10 +36,10 @@ export async function POST(req: Request) {
       select: 'name type passengerQuantity status'
     });
     return NextResponse.json(populatedService, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating service:', error);
     return NextResponse.json(
-      { message: error.message || "Error creating service" },
+        { message: error || "Error creating service" },
       { status: 500 }
     );
   }

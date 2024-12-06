@@ -9,9 +9,9 @@ export async function GET() {
       .sort({ order: 1 })
       .select('-createdAt -updatedAt');
     return NextResponse.json(sliders);
-  } catch (error) {
+  } catch (err) {
     return NextResponse.json(
-      { message: "Error fetching active sliders" },
+      { message: (err as Error).message || "Error fetching active sliders" },
       { status: 500 }
     );
   }

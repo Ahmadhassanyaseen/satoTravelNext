@@ -5,11 +5,20 @@ import { toast } from 'react-hot-toast';
 import VehicleForm from '@/app/components/dashboard/VehicleForm';
 import VehicleList from '@/app/components/dashboard/VehicleList';
 
+interface Vehicle {
+  _id: string;
+  name: string;
+  type: string;
+  passengerQuantity: number;
+  status: string;
+  image?: string;
+}
+
 export default function VehiclesPage() {
-  const [vehicles, setVehicles] = useState([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
 
   useEffect(() => {
     fetchVehicles();
@@ -21,14 +30,15 @@ export default function VehiclesPage() {
       if (!response.ok) throw new Error('Failed to fetch vehicles');
       const data = await response.json();
       setVehicles(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to load vehicles');
+      console.error('Error fetching vehicles:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSave = async (vehicleData) => {
+  const handleSave = async (vehicleData: Vehicle) => {
     try {
       const url = selectedVehicle 
         ? `/api/vehicles/${selectedVehicle._id}`
@@ -46,17 +56,18 @@ export default function VehiclesPage() {
       setShowForm(false);
       setSelectedVehicle(null);
       fetchVehicles();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to save vehicle');
+      console.error('Error saving vehicle:', error);
     }
   };
 
-  const handleEdit = (vehicle) => {
+  const handleEdit = (vehicle: Vehicle) => {
     setSelectedVehicle(vehicle);
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this vehicle?')) return;
 
     try {
@@ -68,8 +79,9 @@ export default function VehiclesPage() {
       
       toast.success('Vehicle deleted');
       fetchVehicles();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to delete vehicle');
+      console.error('Error deleting vehicle:', error);
     }
   };
 

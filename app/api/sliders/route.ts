@@ -10,7 +10,7 @@ export async function GET() {
     return NextResponse.json(sliders);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error fetching sliders" },
+      { message: (error as Error).message || "Error fetching sliders" },
       { status: 500 }
     );
   }
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     return NextResponse.json(slider, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Error creating slider" },
+      { message: (error as Error).message || "Error creating slider" },
       { status: 500 }
     );
   }

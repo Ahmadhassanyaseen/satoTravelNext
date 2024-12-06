@@ -1,6 +1,13 @@
 import Image from 'next/image';
+import { Slider } from '@/app/types/slider';
 
-const SliderList = ({ sliders, onEdit, onDelete }) => {
+interface SliderListProps {
+  sliders: Slider[];
+  onEdit: (slider: Slider) => void;
+  onDelete: (id: string) => void;
+}
+
+const SliderList = ({ sliders, onEdit, onDelete }: SliderListProps) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -59,7 +66,7 @@ const SliderList = ({ sliders, onEdit, onDelete }) => {
                   Edit
                 </button>
                 <button
-                  onClick={() => onDelete(slider._id)}
+                  onClick={() => onDelete(slider._id!)}
                   className="text-red-600 hover:text-red-900"
                 >
                   Delete

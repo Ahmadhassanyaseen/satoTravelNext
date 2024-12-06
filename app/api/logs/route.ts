@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Log from "@/models/Log";
 
+// Define an interface for the query
+interface LogQuery {
+  resourceType?: string;
+  userId?: string;
+}
+
 export async function GET(request: Request) {
   try {
     await dbConnect();
@@ -15,7 +21,7 @@ export async function GET(request: Request) {
     const userId = searchParams.get('userId');
 
     // Build query object
-    let query: any = {};
+    const query: LogQuery = {};
     
     if (resourceType) {
       query.resourceType = resourceType;
@@ -42,7 +48,7 @@ export async function GET(request: Request) {
       totalPages: Math.ceil(total / limit)
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error fetching logs:', error);
     return NextResponse.json(
       { error: 'Failed to fetch logs' },

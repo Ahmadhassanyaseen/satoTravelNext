@@ -5,11 +5,12 @@ import Slider from "@/models/Slider";
 // GET single slider
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const slider = await Slider.findById(params.id);
+    const { id } = await params;
+    const slider = await Slider.findById(id);
     if (!slider) {
       return NextResponse.json(
         { message: "Slider not found" },
@@ -19,7 +20,7 @@ export async function GET(
     return NextResponse.json(slider);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error fetching slider" },
+      { message: (error as Error).message || "Error fetching slider" },
       { status: 500 }
     );
   }
@@ -28,13 +29,14 @@ export async function GET(
 // PUT update slider
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
+    const { id } = await params;
     const data = await req.json();
     const slider = await Slider.findByIdAndUpdate(
-      params.id,
+      id,
       data,
       { new: true, runValidators: true }
     );
@@ -47,7 +49,7 @@ export async function PUT(
     return NextResponse.json(slider);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error updating slider" },
+      { message: (error as Error).message || "Error updating slider" },
       { status: 500 }
     );
   }
@@ -56,11 +58,12 @@ export async function PUT(
 // DELETE slider
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const slider = await Slider.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const slider = await Slider.findByIdAndDelete(id);
     if (!slider) {
       return NextResponse.json(
         { message: "Slider not found" },
@@ -73,7 +76,7 @@ export async function DELETE(
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Error deleting slider" },
+      { message: (error as Error).message || "Error deleting slider" },
       { status: 500 }
     );
   }

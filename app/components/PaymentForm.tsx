@@ -4,12 +4,20 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
+interface PaymentDetails {
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
+  cardholderName: string;
+}
+
 interface PaymentFormProps {
   bookingId: string;
   amount: number;
+  onPaymentSuccess: (paymentDetails: PaymentDetails) => void;
 }
 
-export default function PaymentForm({ bookingId, amount }: PaymentFormProps) {
+export default function PaymentForm({ bookingId, amount, onPaymentSuccess }: PaymentFormProps) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     cardNumber: '',
@@ -40,10 +48,11 @@ export default function PaymentForm({ bookingId, amount }: PaymentFormProps) {
       }
 
       toast.success('Payment successful!');
+      onPaymentSuccess(data);
       router.push(`/booking/confirmation/${bookingId}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Payment error:', error);
-      toast.error(error.message || 'Payment failed. Please try again.');
+      toast.error((error as Error).message || 'Payment failed. Please try again.');
     } finally {
       setIsProcessing(false);
     }

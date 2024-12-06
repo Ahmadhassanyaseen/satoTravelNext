@@ -8,8 +8,7 @@ import {
   faUser, 
   faCalendar, 
   faTag,
-  faLink,
-  faFilter
+  faLink
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Log {
@@ -55,6 +54,7 @@ export default function LogsPage() {
       console.error('Error:', error);
       toast.error('Failed to load logs');
     } finally {
+      console.log(isLoading);
       setIsLoading(false);
     }
   };

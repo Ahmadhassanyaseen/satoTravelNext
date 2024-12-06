@@ -14,16 +14,16 @@ import {
   faSliders,
   faCarSide,
   faComments,
-  faFile,
-  faCreditCard
+
 } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Toaster } from 'react-hot-toast';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 interface NavItem {
   name: string;
-  icon: any;
+  icon: IconDefinition;
   href: string;
   roles: string[];
 }
@@ -58,6 +58,7 @@ export default function DashboardLayout({
   const [userRole, setUserRole] = useState<string>('');
   const [userData, setUserData] = useState<UserData | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -111,7 +112,9 @@ export default function DashboardLayout({
             <Link
               key={item.name}
               href={item.href}
-              className="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white"
+              className={`flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white ${
+                pathname?.startsWith(item.href) ? 'bg-gray-700 text-white' : ''
+              }`}
             >
               <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mr-3" />
               {item.name}

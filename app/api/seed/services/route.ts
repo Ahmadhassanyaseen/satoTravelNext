@@ -24,10 +24,11 @@ export async function POST() {
     await Service.deleteMany({}); // Clear existing services
     const services = await Service.create(sampleServices);
     return NextResponse.json({ message: "Services seeded", services });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Error seeding services";
     return NextResponse.json(
-      { message: error.message || "Error seeding services" },
+      { message: errorMessage },
       { status: 500 }
     );
   }
-} 
+}

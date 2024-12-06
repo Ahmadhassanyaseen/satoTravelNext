@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import SliderForm from '@/app/components/dashboard/SliderForm';
 import SliderList from '@/app/components/dashboard/SliderList';
+import { Slider } from '@/app/types/slider';
 
 export default function SlidersPage() {
-  const [sliders, setSliders] = useState([]);
+  const [sliders, setSliders] = useState<Slider[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [selectedSlider, setSelectedSlider] = useState(null);
+  const [selectedSlider, setSelectedSlider] = useState<Slider | null>(null);
 
   useEffect(() => {
     fetchSliders();
@@ -21,14 +22,15 @@ export default function SlidersPage() {
       if (!response.ok) throw new Error('Failed to fetch sliders');
       const data = await response.json();
       setSliders(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to load sliders');
+      console.error('Error fetching sliders:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSave = async (sliderData) => {
+  const handleSave = async (sliderData: Slider) => {
     try {
       const url = selectedSlider 
         ? `/api/sliders/${selectedSlider._id}`
@@ -46,17 +48,18 @@ export default function SlidersPage() {
       setShowForm(false);
       setSelectedSlider(null);
       fetchSliders();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to save slider');
+      console.error('Error saving slider:', error);
     }
   };
 
-  const handleEdit = (slider) => {
+  const handleEdit = (slider: Slider) => {
     setSelectedSlider(slider);
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this slider?')) return;
 
     try {
@@ -68,8 +71,9 @@ export default function SlidersPage() {
       
       toast.success('Slider deleted');
       fetchSliders();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to delete slider');
+      console.error('Error deleting slider:', error);
     }
   };
 

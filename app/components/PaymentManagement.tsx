@@ -10,6 +10,7 @@ export default function PaymentManagement() {
   const [cards, setCards] = useState<CreditCard[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     cardHolder: '',
     cardNumber: '',
@@ -26,9 +27,11 @@ export default function PaymentManagement() {
       if (!response.ok) throw new Error('Failed to fetch cards');
       const data = await response.json();
       setCards(data);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to load payment methods');
+      console.error('Error fetching cards:', error);
     } finally {
+      console.log(isLoading);
       setIsLoading(false);
     }
   };
@@ -48,8 +51,9 @@ export default function PaymentManagement() {
       setShowAddForm(false);
       setFormData({ cardHolder: '', cardNumber: '', expiryDate: '' });
       fetchCards();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to add card');
+      console.error('Error adding card:', error);
     }
   };
 
@@ -63,8 +67,9 @@ export default function PaymentManagement() {
       
       toast.success('Card deleted successfully');
       fetchCards();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to delete card');
+      console.error('Error deleting card:', error);
     }
   };
 
@@ -78,8 +83,9 @@ export default function PaymentManagement() {
       
       toast.success('Default card updated');
       fetchCards();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to update default card');
+      console.error('Error updating default card:', error);
     }
   };
 

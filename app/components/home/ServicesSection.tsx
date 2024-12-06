@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { toast } from 'react-hot-toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { Vehicle } from '@/app/types/vehicle';
 
 interface Service {
   _id: string;
@@ -26,6 +27,20 @@ interface Service {
     passengerQuantity: number;
     status: string;
   };
+}
+
+interface CardProps {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  locationFrom: string;
+  locationTo: string;
+  days: number;
+  price: number;
+  status: string;
+  vehicleId: Vehicle;
+  maxPeople: number;
 }
 
 const ServicesSection = () => {
@@ -121,7 +136,7 @@ const ServicesSection = () => {
         <Slider {...settings} className="service-slider px-4">
           {services.map((service) => (
             <div key={service._id} className="">
-              <Card {...service} maxPeople={service.maxPeople} />
+              <Card {...service as CardProps  } maxPeople={service.maxPeople} />
             </div>
           ))}
         </Slider>

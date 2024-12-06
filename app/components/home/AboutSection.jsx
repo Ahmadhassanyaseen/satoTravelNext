@@ -34,7 +34,7 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="3000"
           >
-            Explore the world's most breathtaking locations. Whether it's
+            Explore the worlds most breathtaking locations. Whether its
             relaxing on a pristine beach, hiking through lush mountains, or
             experiencing vibrant cityscapes, we have something for every
             traveler.

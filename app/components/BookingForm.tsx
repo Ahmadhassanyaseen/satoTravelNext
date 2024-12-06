@@ -60,8 +60,9 @@ export default function BookingForm({ serviceId, price, maxPeople, onSuccess }: 
       toast.success('Booking created successfully');
       if (onSuccess) onSuccess();
       router.push(`/booking/payment/${bookingResponse._id}`);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to create booking');
+      console.error('Error creating booking:', error);
     } finally {
       setIsSubmitting(false);
     }

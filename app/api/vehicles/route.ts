@@ -8,9 +8,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const vehicle = await Vehicle.create(body);
     return NextResponse.json(vehicle, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message },
+      { error: (error as Error).message },
       { status: 400 }
     );
   }
@@ -25,7 +25,11 @@ export async function GET(request: Request) {
     const type = searchParams.get('type');
     const featured = searchParams.get('featured');
 
-    let query: any = {};
+    const query: {
+      status?: string;
+      type?: string; 
+      isFeatured?: boolean;
+    } = {};
     
     if (status) query.status = status;
     if (type) query.type = type;
@@ -35,9 +39,9 @@ export async function GET(request: Request) {
       .sort({ createdAt: -1 });
 
     return NextResponse.json(vehicles);
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message },
+      { error: (error as Error).message },
       { status: 400 }
     );
   }

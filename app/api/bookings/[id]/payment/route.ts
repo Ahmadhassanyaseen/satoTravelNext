@@ -1,18 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import Log from "@/models/Log";
 
 export async function POST(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const data = await req.json();
+    const { id } = await params;
     
     const booking = await Booking.findByIdAndUpdate(
-      params.id,
+      id,
       { status: 'confirmed' },
       { new: true }
     ).populate('userId');
@@ -31,8 +31,8 @@ export async function POST(
       details: `Payment completed for booking ${booking._id}`,
       resourceType: 'booking',
       resourceId: booking._id,
-      ipAddress: req.headers.get('x-forwarded-for') || 'unknown',
-      userAgent: req.headers.get('user-agent') || 'unknown'
+      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown'
     });
 
     return NextResponse.json({ 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -56,7 +56,7 @@ export default function BookingsPage() {
     }
   }, [user, currentPage]);
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       const isAdmin = user?.role === 'admin';
       const userId = user?.id;
@@ -76,7 +76,7 @@ export default function BookingsPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user, currentPage, itemsPerPage]);
 
   const handleStatusChange = async (bookingId: string, newStatus: string) => {
     try {

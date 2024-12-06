@@ -2,9 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import ImageUpload from '../ImageUpload';
+import { Slider } from '@/app/types/slider';
 
-const SliderForm = ({ slider, onSave, onClose }) => {
-  const [formData, setFormData] = useState({
+interface SliderFormProps {
+  slider: Slider | null;
+  onSave: (data: Slider) => void;
+  onClose: () => void;
+}
+
+const SliderForm = ({ slider, onSave, onClose }: SliderFormProps) => {
+  const [formData, setFormData] = useState<Slider>({
+    _id: '',
     title: '',
     subtitle: '',
     description: '',
@@ -21,12 +29,12 @@ const SliderForm = ({ slider, onSave, onClose }) => {
     }
   }, [slider]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
   };
 
-  const handleImageUpload = (imageUrl) => {
+  const handleImageUpload = (imageUrl: string) => {
     setFormData(prev => ({ ...prev, image: imageUrl }));
   };
 

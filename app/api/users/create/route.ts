@@ -52,18 +52,13 @@ export async function POST(request: Request) {
     };
 
     return NextResponse.json(userResponse, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating user:', error);
     
-    if (error.code === 11000) {
-      return NextResponse.json(
-        { error: 'Email already exists' },
-        { status: 400 }
-      );
-    }
-
+    
+  
     return NextResponse.json(
-      { error: 'Failed to create user', details: error.message },
+      { error: 'Failed to create user', details: (error as Error).message },
       { status: 500 }
     );
   }

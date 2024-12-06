@@ -29,6 +29,20 @@ interface Service {
   status: string;
 }
 
+interface ServiceFormData {
+  _id?: string;
+  title: string;
+  description: string;
+  image: string;
+  price: number;
+  locationFrom: string;
+  locationTo: string;
+  days: number;
+  maxPeople: number;
+  vehicleId: string;
+  status: string;
+}
+
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -208,7 +222,7 @@ export default function ServicesPage() {
               {selectedService ? 'Edit Service' : 'Add New Service'}
             </h2>
             <ServiceForm
-              service={selectedService}
+              service={selectedService as unknown as ServiceFormData}
               onClose={() => setIsModalOpen(false)}
               onSave={() => {
                 setIsModalOpen(false);

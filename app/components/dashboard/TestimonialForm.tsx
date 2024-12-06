@@ -56,8 +56,9 @@ export default function TestimonialForm({ testimonial, onClose, onSave }: Testim
       
       toast.success(testimonial?._id ? 'Testimonial updated' : 'Testimonial created');
       onSave();
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to save testimonial');
+      console.error('Error saving testimonial:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -121,7 +122,7 @@ export default function TestimonialForm({ testimonial, onClose, onSave }: Testim
         <label className="block text-sm font-medium text-gray-700">Image</label>
         <ImageUpload
           onImageUpload={handleImageUpload}
-          existingImage={formData.image}
+          existingImage={formData.image || null}
         />
       </div>
 

@@ -3,12 +3,13 @@ import dbConnect from '@/lib/mongodb';
 import Vehicle from '@/models/Vehicle';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const vehicle = await Vehicle.findById(params.id);
+    const { id } = await params;
+    const vehicle = await Vehicle.findById(id);
 
     if (!vehicle) {
       return NextResponse.json(
@@ -18,23 +19,24 @@ export async function GET(
     }
 
     return NextResponse.json(vehicle);
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message },
+      { error: (error as Error).message },
       { status: 400 }
     );
   }
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const body = await request.json();
+    const { id } = await params;
+    const body = await req.json();
     const vehicle = await Vehicle.findByIdAndUpdate(
-      params.id,
+      id,
       body,
       { new: true, runValidators: true }
     );
@@ -47,21 +49,22 @@ export async function PUT(
     }
 
     return NextResponse.json(vehicle);
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message },
+      { error: (error as Error).message },
       { status: 400 }
     );
   }
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const vehicle = await Vehicle.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const vehicle = await Vehicle.findByIdAndDelete(id);
 
     if (!vehicle) {
       return NextResponse.json(
@@ -71,9 +74,9 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: 'Vehicle deleted successfully' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message },
+      { error: (error as Error).message },
       { status: 400 }
     );
   }

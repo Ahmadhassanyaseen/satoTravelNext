@@ -33,6 +33,12 @@ interface BookingDetails {
   };
 }
 
+interface PaymentDetails {
+  cardNumber: string;
+  expiryDate: string;
+  cardholderName: string;
+}
+
 export default function PaymentPage() {
   const [booking, setBooking] = useState<BookingDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -158,7 +164,7 @@ export default function PaymentPage() {
               <PaymentForm 
                 bookingId={booking._id} 
                 amount={booking.totalPrice}
-                onPaymentSuccess={(paymentDetails) => {
+                onPaymentSuccess={(paymentDetails: PaymentDetails) => {
                   // Update booking with payment details
                   fetch(`/api/bookings/${booking._id}`, {
                     method: 'PUT',

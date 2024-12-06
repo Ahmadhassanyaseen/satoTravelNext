@@ -1,5 +1,4 @@
 const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN;
-const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID;
 
 export async function getInstagramFeed(limit = 6) {
   try {

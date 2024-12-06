@@ -10,6 +10,14 @@ import {
   faCar 
 } from "@fortawesome/free-solid-svg-icons";
 
+interface Vehicle {
+  _id: string;
+  name: string;
+  type: string;
+  passengerQuantity: number;
+  status: string;
+}
+
 interface CardProps {
   _id: string;
   title: string;
@@ -21,13 +29,7 @@ interface CardProps {
   days: number;
   maxPeople: number;
   status: string;
-  vehicleId: {
-    _id: string;
-    name: string;
-    type: string;
-    passengerQuantity: number;
-    status: string;
-  };
+  vehicleId?: Vehicle;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -41,8 +43,8 @@ const Card: React.FC<CardProps> = ({
   price,
   status,
   vehicleId
-}) => {
-  let rating = Math.floor(Math.random() * 2) + 4;
+}) => { 
+  const rating = Math.floor(Math.random() * 2) + 4;
  
   console.log('Service data:', { _id, image, locationFrom, locationTo, days, title, description, price, status, vehicleId });
 

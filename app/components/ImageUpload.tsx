@@ -3,12 +3,19 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
-const ImageUpload = ({ onImageUpload, existingImage = null }) => {
+const ImageUpload = ({
+  onImageUpload,
+  existingImage = null
+}: {
+  onImageUpload: (url: string) => void;
+  existingImage?: string | null;
+}) => {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(existingImage);
 
-  const onDrop = useCallback(async (acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
 
@@ -79,10 +86,13 @@ const ImageUpload = ({ onImageUpload, existingImage = null }) => {
 
       {preview && (
         <div className="relative">
-          <img
+          <Image
             src={preview}
             alt="Preview"
-            className="mt-4 rounded-lg max-h-48 mx-auto"
+            width={192}
+            height={192}
+            className="mt-4 rounded-lg mx-auto"
+            priority
           />
           <button
             onClick={(e) => {
