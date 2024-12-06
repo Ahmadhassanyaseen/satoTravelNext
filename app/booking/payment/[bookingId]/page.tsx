@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import PaymentForm from '@/app/components/PaymentForm';
-import Header from '@/app/components/layout/Header';
-import Footer from '@/app/components/layout/Footer';
+import PaymentForm from '../../../components/PaymentForm';
+import Header from '../../../components/layout/Header';
+import Footer from '../../../components/layout/Footer';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
