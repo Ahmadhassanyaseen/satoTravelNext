@@ -16,6 +16,7 @@ interface Vehicle {
   name: string;
   type: string;
   passengerQuantity: number;
+  description: string;
   status: string;
   image: string;
 }
@@ -96,7 +97,29 @@ export default function ServicePage() {
               </p>
             </div>
             <div>
-              <h1 className="text-[30px] font-[500] my-10">Iterniries</h1>
+              <h1 className="text-[30px] font-[500] my-10">Vehicle Details</h1>
+              <div className="bg-gray-50 p-6 rounded-lg mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative aspect-video rounded-lg overflow-hidden">
+                    <Image
+                      src={service.vehicleId.image}
+                      alt={service.vehicleId.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-medium">{service.vehicleId.name}</h3>
+                    <div className="space-y-2 text-[#3e3e3e]">
+                      <p><span className="font-medium">Description:</span> {service.vehicleId.description}</p>
+                      <p><span className="font-medium">Type:</span> {service.vehicleId.type}</p>
+                      <p><span className="font-medium">Passenger Capacity:</span> {service.vehicleId.passengerQuantity} people</p>
+                      <p><span className="font-medium">Status:</span> {service.vehicleId.status}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h1 className="text-[30px] font-[500] my-10">Itineraries</h1>
               <div className="font-[300]">
                 <div className="flex  gap-4 flex-col">
                   <div className="flex items-center gap-4">

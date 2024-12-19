@@ -13,6 +13,7 @@ const VideoCTA = dynamic(() => import('./components/home/VideoCTA'));
 const ServicesSection = dynamic(() => import('./components/home/ServicesSection'));
 const CTA = dynamic(() => import('./components/home/CTA'));
 const TestimonialsSection = dynamic(() => import('./components/home/TestimonialsSection'));
+const GallerySection = dynamic(() => import('./components/home/GallerySection'));
 const Footer = dynamic(() => import('./components/layout/Footer'));
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
           <ServicesSection />
           <CTA />
           <TestimonialsSection />
+          <GallerySection />
           <Footer />
         </AOSWrapper>
       </Suspense>

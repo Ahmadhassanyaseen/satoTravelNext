@@ -14,7 +14,7 @@ export async function GET(
       .populate({
         path: 'vehicleId',
         model: Vehicle,
-        select: 'name type passengerQuantity status image'
+        select: 'name type description passengerQuantity status image'
       });
 
     if (!service) {

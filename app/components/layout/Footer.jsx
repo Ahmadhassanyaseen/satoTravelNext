@@ -1,5 +1,5 @@
 'use client'
-import { faFacebook, faInstagram, faViber, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faInstagram, faTiktok, faViber, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -85,6 +85,22 @@ const Footer = () => {
                 }}></span>
               </a>
             )}
+             <a href="https://www.tiktok.com/@sato_japan_tours?_t=8sLAr1ZXknf&_r=1" target="_blank" rel="noopener noreferrer"
+                className="Btn relative"
+                data-aos="fade-up"
+                data-aos-duration="3000"
+              >
+                <span className="svgContainer relative z-10 flex items-center justify-center">
+                  <FontAwesomeIcon
+                    icon={faTiktok}
+                    className="text-white text-2xl"
+                  />
+                </span>
+                <span className="BG absolute inset-0" style={{
+  background: 'linear-gradient(45deg, #ff0050 0%, #7f00ff 50%, #000000 100%)'
+}}></span>
+
+              </a>
 
             {settings?.socialLinks?.youtube && (
               <a href={settings.socialLinks.youtube} target="_blank" rel="noopener noreferrer"

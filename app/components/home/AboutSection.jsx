@@ -1,13 +1,9 @@
 "use client";
 
-
 import "aos/dist/aos.css";
-
+import Image from "next/image";
 
 const AboutSection = () => {
-  
- 
-  
   return (
     <section
       id="about"
@@ -130,7 +126,9 @@ const AboutSection = () => {
               </g>
             </svg>
 
-            <p className="text-lg font-semibold text-gray-900">Mount Fuji Tour</p>
+            <p className="text-lg font-semibold text-gray-900">
+              Mount Fuji Tour
+            </p>
           </div>
 
           <div
@@ -199,7 +197,9 @@ const AboutSection = () => {
               </g>
             </svg>
 
-            <p className="text-lg font-semibold text-gray-900">Hakone Shrine Tour</p>
+            <p className="text-lg font-semibold text-gray-900">
+              Hakone Shrine Tour
+            </p>
           </div>
 
           <div
@@ -316,7 +316,9 @@ const AboutSection = () => {
                 </g>
               </g>
             </svg>
-            <p className="text-lg font-semibold text-gray-900">Tokyo City Tour</p>
+            <p className="text-lg font-semibold text-gray-900">
+              Tokyo City Tour
+            </p>
           </div>
 
           <div
@@ -410,7 +412,9 @@ const AboutSection = () => {
                 <path d="m483.1 400h4.9a8 8 0 0 0 5.657-13.657l-4.686-4.686a30.427 30.427 0 0 1 -8.971-21.657 8 8 0 0 0 -8-8h-16a8 8 0 0 0 -5.8-7.692 418.293 418.293 0 0 1 -95.027-40.308h100.827a24.027 24.027 0 0 0 24-24h-16a8.015 8.015 0 0 1 -5.97 7.739l-9.124-6.083a19.962 19.962 0 0 1 -8.906-16.641v-1.015a8 8 0 0 0 -8-8h-24v-32h16a24.027 24.027 0 0 0 24-24h-16a8 8 0 0 1 -3.688 6.736l-1.99-3.98a22.114 22.114 0 0 1 -2.322-9.838v-.918a8 8 0 0 0 -8-8h-14.59l-6.958-2.53q-9.346-3.4-18.451-7.368v-54.102a24.027 24.027 0 0 0 24-24h-16.001a8.013 8.013 0 0 1 -6.415 7.842 431.183 431.183 0 0 1 -110.416-79.988l-5.512-5.511a8 8 0 0 0 -11.313 0l-5.511 5.511a433.6 433.6 0 0 1 -38.117 33.862l9.9 12.568a449.772 449.772 0 0 0 39.384-34.971 447.055 447.055 0 0 0 88.583 68.687h-70.289q-6.241-6.375-12.128-13.1l-.143-.163a8 8 0 0 0 -12.046 0l-.14.162q-5.886 6.725-12.13 13.1h-70.307c12.858-7.6 25.345-15.854 37.342-24.674l-9.478-12.89a433.469 433.469 0 0 1 -60.847 37.406 8.013 8.013 0 0 1 -6.417-7.841h-16a24.027 24.027 0 0 0 24 24v54.1q-9.1 3.966-18.453 7.368l-6.957 2.532h-14.59a8 8 0 0 0 -8 8v.918a22.114 22.114 0 0 1 -2.322 9.838l-1.99 3.98a8 8 0 0 1 -3.688-6.736h-16a24.027 24.027 0 0 0 24 24h16v32h-24a8 8 0 0 0 -8 8v1.015a19.962 19.962 0 0 1 -8.906 16.641l-9.124 6.083a8.015 8.015 0 0 1 -5.97-7.739h-16a24.027 24.027 0 0 0 24 24h16v37.257q-5.07 1.584-10.2 3.051a8 8 0 0 0 -5.8 7.692h-16a8 8 0 0 0 -8 8 30.426 30.426 0 0 1 -8.97 21.656l-4.687 4.687a8 8 0 0 0 5.657 13.657h4.9l-12.49 37.47a8 8 0 0 0 7.59 10.53h8v40a8 8 0 0 0 8 8h360v-16h-352v-32h24a8 8 0 0 0 8-8v-40h128v32a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8v-32h128v40a8 8 0 0 0 8 8h24v32h-48v16h56a8 8 0 0 0 8-8v-40h8a8 8 0 0 0 7.589-10.53zm-61.575-48h-77.525v-8h-48v8h-16v-8h-48v8h-16v-8h-48v8h-77.525c58.582-20.442 111.817-53.053 165.525-101.211 53.71 48.159 106.944 80.771 165.524 101.211zm-301.525-96v-32h272v32h-104v1.169q-12.4-10.159-24.807-21.441l-1.811-1.647a8 8 0 0 0 -10.762 0l-1.812 1.646q-12.418 11.288-24.808 21.442v-1.169zm304.68 16a35.88 35.88 0 0 0 7.6 16h-102.819q-11.327-7.567-22.565-16zm-64.68-152v46.6a323.555 323.555 0 0 1 -68.87-46.6zm-104-12.026a339.162 339.162 0 0 0 103.152 76.026h-206.3a339.194 339.194 0 0 0 103.148-76.026zm-104 12.026h68.868a323.526 323.526 0 0 1 -68.868 46.6zm-51.123 88a38.264 38.264 0 0 0 2.451-8h305.343a38.264 38.264 0 0 0 2.451 8zm-13.557 64h117.78q-11.247 8.438-22.564 16h-102.82a35.88 35.88 0 0 0 7.604-16zm.68 32h68.827a419.2 419.2 0 0 1 -68.827 31.9zm-24 128h-28.9l10.666-32h18.234zm224-8h-64v-24h64zm-246.629-40a46.093 46.093 0 0 0 5.95-16h417.358a46.093 46.093 0 0 0 5.95 16zm406.629 48v-32h18.234l10.666 32z" />
               </g>
             </svg>
-            <p className="text-lg font-semibold text-gray-900">Osaka City Tour</p>
+            <p className="text-lg font-semibold text-gray-900">
+              Osaka City Tour
+            </p>
           </div>
 
           <div
@@ -476,9 +480,82 @@ const AboutSection = () => {
               </g>
             </svg>
             <p className="text-lg font-semibold text-gray-900">
-           Kyoto City Tour
+              Kyoto City Tour
             </p>
           </div>
+        </div>
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center items-center px-4 max-w-7xl mx-auto">
+          <div
+            className="flex flex-col items-center"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
+           <Image
+              src={"/assets/images/niko.svg"}
+              alt={"Instagram post"}
+              width={100}
+              height={64}
+              className="object-cover"
+            />
+
+            <p className="text-lg font-semibold text-gray-900">
+              Niko City Tour
+            </p>
+          </div>
+
+          <div
+            className="flex flex-col items-center"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+          >
+           <Image
+              src={"/assets/images/nara.svg"}
+              alt={"Instagram post"}
+              width={100}
+            height={64}
+              className="object-cover"
+            />
+
+            <p className="text-lg font-semibold text-gray-900">
+              Nara City Tour
+            </p>
+          </div>
+
+          <div
+            className="flex flex-col items-center"
+            data-aos="fade-up"
+            data-aos-duration="2000"
+          >
+           <Image
+              src={"/assets/images/hiroshima.svg"}
+              alt={"Instagram post"}
+              width={100}
+            height={64}
+              className="object-cover"
+            />
+            <p className="text-lg font-semibold text-gray-900">
+              Hiroshima City Tour
+            </p>
+          </div>
+
+          <div
+            className="flex flex-col items-center"
+            data-aos="fade-up"
+            data-aos-duration="2500"
+          >
+           <Image
+              src={"/assets/images/nagano.svg"}
+              alt={"Instagram post"}
+              width={100}
+            height={64}
+              className="object-cover"
+            />
+            <p className="text-lg font-semibold text-gray-900">
+              Nagano City Tour
+            </p>
+          </div>
+
+         
         </div>
       </div>
     </section>

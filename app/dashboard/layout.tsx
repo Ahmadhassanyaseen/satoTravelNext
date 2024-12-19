@@ -14,6 +14,7 @@ import {
   faSliders,
   faCarSide,
   faComments,
+  faImage,
 
 } from '@fortawesome/free-solid-svg-icons';
 import { useRouter, usePathname } from 'next/navigation';
@@ -43,6 +44,7 @@ const navigationItems: NavItem[] = [
   { name: 'Vehicles', icon: faCarSide, href: '/dashboard/vehicles', roles: ['admin'] },
   { name: 'Reviews', icon: faComments, href: '/dashboard/testimonials', roles: ['admin'] },
   { name: 'Settings', icon: faCog, href: '/dashboard/settings', roles: ['admin'] },
+  { name: 'Gallery', icon: faImage, href: '/dashboard/gallery', roles: ['admin'] },
   { name: 'My Bookings', icon: faBookmark, href: '/dashboard/bookings', roles: ['admin', 'user'] },
   { name: 'Profile', icon: faUser, href: '/dashboard/profile', roles: ['admin', 'user'] },
   // { name: 'Payment Methods', icon: faCreditCard, href: '/dashboard/payment', roles: ['admin', 'user'] },
