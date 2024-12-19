@@ -493,6 +493,7 @@ const AboutSection = () => {
            <Image
               src={"/assets/images/niko.svg"}
               alt={"Instagram post"}
+              
               width={100}
               height={64}
               className="object-cover"
