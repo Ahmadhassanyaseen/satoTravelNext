@@ -494,7 +494,7 @@ const AboutSection = () => {
             data-aos-duration="1000"
           >
             <Image
-              src={"/assets/images/niko.svg"}
+              src={"/assets/images/NikkoNew.svg"}
               alt={"Instagram post"}
               width={100}
               height={64}
@@ -547,7 +547,7 @@ const AboutSection = () => {
             data-aos-duration="2500"
           >
             <Image
-              src={"/assets/images/nagano.svg"}
+              src={"/assets/images/NaganoNew.svg"}
               alt={"Instagram post"}
               width={100}
               height={64}
