@@ -76,7 +76,7 @@ const Card = ({ service }: CardProps) => {
 
         <div className="flex justify-between items-center">
           <span className="text-2xl font-bold text-blue-600">
-            ¥{service.price}
+            ${service.price}
           </span>
           <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Book Now

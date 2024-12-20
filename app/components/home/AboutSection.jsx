@@ -23,16 +23,19 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="3000"
           >
-            Welcome to Sato Japan Tours
+            Welcome to Sato Japan Tours <br />
+            Our Guest are Our Honour
           </h2>
           <p
             className="text-gray-600 text-lg leading-relaxed"
             data-aos="fade-up"
             data-aos-duration="3000"
           >
-            Explore the worlds most breathtaking locations. Whether its relaxing
-            on a pristine beach, hiking through lush mountains, or experiencing
-            vibrant cityscapes, we have something for every traveler.
+            We have well experienced staff for the better facilities of trip. We
+            have well experienced drivers and guides who have good knowledge
+            about the areas , history and traditions of Japan. You will enjoy
+            the traditions and history of Japan with us. Your tour will be
+            memorable for your whole life definitely...😊
           </p>
         </div>
 
@@ -198,7 +201,7 @@ const AboutSection = () => {
             </svg>
 
             <p className="text-lg font-semibold text-gray-900">
-              Hakone Shrine Tour
+              Hakone City Tour
             </p>
           </div>
 
@@ -490,17 +493,16 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="1000"
           >
-           <Image
+            <Image
               src={"/assets/images/niko.svg"}
               alt={"Instagram post"}
-              
               width={100}
               height={64}
               className="object-cover"
             />
 
             <p className="text-lg font-semibold text-gray-900">
-              Niko City Tour
+              Nikko City Tour
             </p>
           </div>
 
@@ -509,11 +511,11 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="1500"
           >
-           <Image
+            <Image
               src={"/assets/images/nara.svg"}
               alt={"Instagram post"}
               width={100}
-            height={64}
+              height={64}
               className="object-cover"
             />
 
@@ -527,11 +529,11 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="2000"
           >
-           <Image
+            <Image
               src={"/assets/images/hiroshima.svg"}
               alt={"Instagram post"}
               width={100}
-            height={64}
+              height={64}
               className="object-cover"
             />
             <p className="text-lg font-semibold text-gray-900">
@@ -544,19 +546,17 @@ const AboutSection = () => {
             data-aos="fade-up"
             data-aos-duration="2500"
           >
-           <Image
+            <Image
               src={"/assets/images/nagano.svg"}
               alt={"Instagram post"}
               width={100}
-            height={64}
+              height={64}
               className="object-cover"
             />
             <p className="text-lg font-semibold text-gray-900">
               Nagano City Tour
             </p>
           </div>
-
-         
         </div>
       </div>
     </section>

@@ -88,7 +88,7 @@ const Card = ({
             </div>
           </div>
           <div className="absolute top-4 left-[40%] bg-black bg-opacity-50 text-white text-sm p-3 rounded">
-            ¥ {price}
+            $ {price}
           </div>
         </div>
       </div>

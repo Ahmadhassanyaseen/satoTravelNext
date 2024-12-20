@@ -170,7 +170,7 @@ export default function BookingsPage() {
                     {booking.guests}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ¥{booking.totalPrice.toLocaleString()}
+                    ${booking.totalPrice.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <StatusBadge status={booking.status} />

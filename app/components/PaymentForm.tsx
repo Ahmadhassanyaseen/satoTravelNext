@@ -115,7 +115,7 @@ export default function PaymentForm({ bookingId, amount, onPaymentSuccess }: Pay
       <div className="bg-gray-50 p-4 rounded-md">
         <div className="flex justify-between">
           <span>Total Amount:</span>
-          <span className="font-semibold">¥{amount}</span>
+          <span className="font-semibold">${amount}</span>
         </div>
       </div>
 

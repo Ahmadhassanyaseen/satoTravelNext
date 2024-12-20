@@ -20,9 +20,13 @@ const CTA = () => {
         data-aos-duration="3000"
         className="text-white text-center relative z-10 max-w-[60%] mx-auto my-3"
       >
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad saepe
-        incidunt nemo aperiam neque non voluptates maxime cum unde, magnam
-        aliquam cupiditate maiores atque natus iure. Neque odio at id.
+        Where every sunrise paints the sky in hues of hope and every whispering
+        breeze carries stories of serenity. Immerse yourself in lush forests,
+        majestic mountains green gardens, and crystal-clear waters that awaken a
+        sense of wonder. Nature’s vibrant colors, soothing sounds, and intricate
+        designs remind us of life’s simple, yet profound, treasures. Let the
+        stillness of a quiet meadow or the roar of ocean waves inspire you to
+        connect, reflect, and embrace the harmony around you.
       </p>
       <button
         data-aos="fade-up"

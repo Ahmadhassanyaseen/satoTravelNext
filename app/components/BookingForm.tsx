@@ -101,7 +101,7 @@ export default function BookingForm({ serviceId, price, maxPeople, onSuccess }: 
       <div className="space-y-2">
         <label className="flex items-center gap-2 text-gray-700 font-medium">
           <FontAwesomeIcon icon={faUsers} className="text-blue-500" />
-          Number of Guests
+          Number of Tours
         </label>
         <select
           value={formData.guests}
@@ -111,7 +111,7 @@ export default function BookingForm({ serviceId, price, maxPeople, onSuccess }: 
         >
           {[...Array(maxPeople)].map((_, i) => (
             <option key={i + 1} value={i + 1}>
-              {i + 1} {i === 0 ? 'Guest' : 'Guests'}
+              {i + 1} {i === 0 ? 'Tour' : 'Tours'}
             </option>
           ))}
         </select>
@@ -120,16 +120,16 @@ export default function BookingForm({ serviceId, price, maxPeople, onSuccess }: 
       {/* Price Calculation */}
       <div className="bg-gray-50 p-4 rounded-lg space-y-2">
         <div className="flex justify-between text-gray-600">
-          <span>Price per person</span>
-          <span>¥{price?.toLocaleString()}</span>
+          <span>Price per tour</span>
+          <span>${price?.toLocaleString()}</span>
         </div>
         <div className="flex justify-between text-gray-600">
-          <span>Guests</span>
+          <span>Number of tours</span>
           <span>× {formData.guests}</span>
         </div>
         <div className="border-t border-gray-200 pt-2 flex justify-between font-semibold text-lg">
           <span>Total</span>
-          <span className="text-blue-600">¥{totalPrice?.toLocaleString()}</span>
+          <span className="text-blue-600">${totalPrice?.toLocaleString()}</span>
         </div>
       </div>
 

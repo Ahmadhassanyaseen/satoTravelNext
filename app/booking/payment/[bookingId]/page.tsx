@@ -122,7 +122,7 @@ export default function PaymentPage() {
                   </div>
                   <div className="flex items-center gap-4 text-gray-600">
                     <FontAwesomeIcon icon={faUsers} className="text-blue-500" />
-                    <span>{booking.guests} {booking.guests === 1 ? 'Guest' : 'Guests'}</span>
+                    <span>{booking.guests} {booking.guests === 1 ? 'Tour' : 'Tours'}</span>
                   </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function PaymentPage() {
                 <div className="text-right">
                   <p className="text-sm text-gray-500">Total Amount</p>
                   <p className="text-2xl font-bold text-blue-600">
-                    ¥{booking.totalPrice.toLocaleString()}
+                    ${booking.totalPrice.toLocaleString()}
                   </p>
                 </div>
               </div>

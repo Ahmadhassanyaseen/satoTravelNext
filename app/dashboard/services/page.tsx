@@ -182,10 +182,10 @@ export default function ServicesPage() {
                     {service.days} days
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {typeof service.vehicleId === 'object' ? service.vehicleId.name : 'Loading...'}
+                    {typeof service.vehicleId === 'object' ? service.vehicleId?.name : 'Loading...'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ¥{service.price}
+                    ${service.price}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 text-xs rounded-full ${

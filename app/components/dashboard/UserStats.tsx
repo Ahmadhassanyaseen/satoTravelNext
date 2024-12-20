@@ -218,7 +218,7 @@ const UserStats = ({ userId }: UserStatsProps) => {
                     <StatusBadge status={booking.status as 'pending' | 'confirmed' | 'cancelled'} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ¥{booking.totalPrice.toLocaleString()}
+                    ${booking.totalPrice.toLocaleString()}
                   </td>
                 </tr>
               ))}

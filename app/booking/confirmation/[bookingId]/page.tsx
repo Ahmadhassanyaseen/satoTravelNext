@@ -124,15 +124,15 @@ export default function ConfirmationPage() {
                   <div className="flex items-center gap-3 text-gray-600">
                     <FontAwesomeIcon icon={faUsers} className="text-green-500" />
                     <div>
-                      <p className="text-sm text-gray-500">Guests</p>
-                      <p className="font-medium">{booking.guests} {booking.guests === 1 ? 'Guest' : 'Guests'}</p>
+                      <p className="text-sm text-gray-500">Tours</p>
+                      <p className="font-medium">{booking.guests} {booking.guests === 1 ? 'Tour' : 'Tours'}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-600">
                     <FontAwesomeIcon icon={faReceipt} className="text-green-500" />
                     <div>
                       <p className="text-sm text-gray-500">Total Paid</p>
-                      <p className="font-medium">¥{booking.totalPrice.toLocaleString()}</p>
+                      <p className="font-medium">${booking.totalPrice.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>

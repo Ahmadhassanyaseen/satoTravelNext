@@ -87,8 +87,8 @@ export default function ServicePage() {
             <div>
               <h1 className="text-[50px] font-[500]">{service.title}</h1>
               <div className="flex text-[15px] text-[#3e3e3e] gap-4">
-              <span>{service.status}</span> | <span>{service.days} days</span> |{" "}
-              <span>{service.maxPeople} people</span> | <span>
+              <span>{service.status}</span> | <span>{service.days} Day</span> |{" "}
+              <span>{service.maxPeople} persons</span> | <span>
                 {service.vehicleId.type}
               </span>
               </div>
@@ -113,7 +113,7 @@ export default function ServicePage() {
                     <div className="space-y-2 text-[#3e3e3e]">
                       <p><span className="font-medium">Description:</span> {service.vehicleId.description}</p>
                       <p><span className="font-medium">Type:</span> {service.vehicleId.type}</p>
-                      <p><span className="font-medium">Passenger Capacity:</span> {service.vehicleId.passengerQuantity} people</p>
+                      <p><span className="font-medium">Passenger Capacity:</span> {service.vehicleId.passengerQuantity} persons</p>
                       <p><span className="font-medium">Status:</span> {service.vehicleId.status}</p>
                     </div>
                   </div>
