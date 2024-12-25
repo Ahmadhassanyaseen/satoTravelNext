@@ -4,7 +4,7 @@ const VideoCTA = () => {
   return (
     <section className="min-h-[90vh] relative text-center content-center">
       <video
-        src="assets/images/travel.mp4"
+        src="https://res.cloudinary.com/dip8bpmwh/video/upload/v1735116763/assets/kh5fuhhk795xnirums97.mp4"
         className="w-full h-full object-cover absolute top-0 left-0"
         autoPlay
         loop

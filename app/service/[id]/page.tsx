@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import ServicesSection from "@/app/components/home/ServicesSection";
 import ServiceGallery from "@/app/components/service/ServiceGallery";
 import ItineraryList from "@/app/components/service/ItineraryList";
+import Preloader from "@/app/components/common/Preloader";
 
 interface Vehicle {
   _id: string;
@@ -63,11 +64,21 @@ export default function ServicePage() {
   }, [params.id]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   if (!service) {
-    return <div>Service not found</div>;
+    return <>
+      <Header />
+      <div className="container mx-auto px-4 py-8 mt-[20%]">
+
+      <h1 className="text-[50px] font-bold text-center text-gray-400 ">Service not found</h1>
+      </div>
+      <div className="mt-5">
+          <ServicesSection />
+        </div>
+      <Footer />
+    </>;
   }
 
   return (

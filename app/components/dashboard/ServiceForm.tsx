@@ -29,7 +29,7 @@ interface ServiceFormProps {
     itinerary: string;
   } | null;
   onClose: () => void;
-  onSave: () => void;
+  onSave: (savedService: ServiceFormData) => void;
 }
 
 interface ServiceFormData {
@@ -48,8 +48,6 @@ interface ServiceFormData {
   itinerary: string;
 }
 
-const statusOptions = ['available', 'booked', 'maintenance'] as const;
-
 export default function ServiceForm({ service, onClose, onSave }: ServiceFormProps) {
   const initialData = service || {};
   console.log('Service data:', service);  // Debug log
@@ -64,7 +62,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
     days: 1,
     maxPeople: 1,
     vehicleId: '',
-    status: 'available',
+    status: service?.status || 'active',  // Use existing status or default to 'active'
     itinerary:  '',
     ...initialData
   });
@@ -108,10 +106,22 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
 
       console.log('Submitting service data:', formData);
 
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          if (key === 'images' && Array.isArray(value)) {
+            value.forEach((img, index) => {
+              formDataToSend.append(`images[${index}]`, img);
+            });
+          } else {
+            formDataToSend.append(key, value.toString());
+          }
+        }
+      });
+
       const response = await fetch(url, {
         method: service?._id ? 'PUT' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
 
       if (!response.ok) {
@@ -121,11 +131,13 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
       }
 
       const savedService = await response.json();
-      console.log('Saved service:', savedService);
+      console.log('Service saved successfully:', savedService);
       
-      toast.success(service?._id ? 'Service updated' : 'Service created');
-      onSave();
+      onSave(savedService);
+      onClose();
+      toast.success('Service saved successfully');
     } catch (error) {
+      console.error('Error saving service:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to save service');
     } finally {
       setIsSubmitting(false);
@@ -159,9 +171,40 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
     }));
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'services');
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to upload image');
+      }
+
+      const data = await response.json();
+      setFormData(prev => ({
+        ...prev,
+        image: data.url
+      }));
+      toast.success('Image uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to upload image');
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1  gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">Images</label>
           <div className="mt-1">
@@ -171,6 +214,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               onImagesChange={handleImagesChange}
               onMainImageChange={handleMainImageChange}
             />
+            <input type="file" onChange={handleImageUpload} />
             {/* <ImageUpload onUpload={(url) => handleImagesChange([...formData.images, url])} /> */}
           </div>
         </div>
@@ -183,7 +227,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -195,7 +239,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               onChange={(e) => handleChange('price', Number(e.target.value))}
               min={0}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -206,7 +250,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               value={formData.locationFrom}
               onChange={(e) => handleChange('locationFrom', e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -217,7 +261,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               value={formData.locationTo}
               onChange={(e) => handleChange('locationTo', e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -229,7 +273,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               onChange={(e) => handleChange('days', Number(e.target.value))}
               min={1}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -241,7 +285,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               onChange={(e) => handleChange('maxPeople', Number(e.target.value))}
               min={1}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             />
           </div>
 
@@ -251,7 +295,7 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               value={formData.vehicleId}
               onChange={(e) => handleChange('vehicleId', e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             >
               <option value="">Select a vehicle</option>
               {vehicles.map((vehicle) => (
@@ -268,13 +312,10 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
               value={formData.status}
               onChange={(e) => handleChange('status', e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
             >
-              {statusOptions.map((status) => (
-                <option key={status} value={status}>
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </option>
-              ))}
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
             </select>
           </div>
         </div>
@@ -286,34 +327,26 @@ export default function ServiceForm({ service, onClose, onSave }: ServiceFormPro
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={3}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">Itinerary</label>
-        {/* <textarea
-          value={formData.itinerary}
-          onChange={(e) => setFormData({ ...formData, itinerary: e.target.value })}
-          rows={5}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          placeholder="Enter the trip itinerary details..."
-        /> */}
         <textarea
-  value={formData.itinerary}
-  onChange={(e) => handleChange('itinerary', e.target.value)}
-  rows={5}
-  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-  placeholder="Enter the trip itinerary details..."
-/>
-
+          value={formData.itinerary}
+          onChange={(e) => handleChange('itinerary', e.target.value)}
+          rows={5}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3"
+          placeholder="Enter the trip itinerary details..."
+        />
       </div>
 
       <div className="mt-6 flex items-center justify-end gap-x-6">
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 p-3"
         >
           Cancel
         </button>

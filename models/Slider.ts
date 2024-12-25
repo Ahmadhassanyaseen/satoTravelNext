@@ -16,6 +16,9 @@ const SliderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imagePublicId: {
+    type: String,
+  },
   link: {
     type: String,
   },

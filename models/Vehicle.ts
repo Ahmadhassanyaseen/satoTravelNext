@@ -15,6 +15,9 @@ const vehicleSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Image URL is required'],
   },
+  imagePublicId: {
+    type: String,
+  },
   passengerQuantity: {
     type: Number,
     required: [true, 'Passenger quantity is required'],

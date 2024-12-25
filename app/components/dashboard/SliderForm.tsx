@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ImageUpload from '../ImageUpload';
 import { Slider } from '@/app/types/slider';
+import toast from 'react-hot-toast';
 
 interface SliderFormProps {
   slider: Slider | null;
@@ -29,14 +30,46 @@ const SliderForm = ({ slider, onSave, onClose }: SliderFormProps) => {
     }
   }, [slider]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Remove _id if it's empty when creating a new slider
-    const submitData = { ...formData };
-    if (!submitData._id) {
-      delete submitData._id;
+    try {
+      // Remove _id if it's empty when creating a new slider
+      const submitData = { ...formData };
+      if (!submitData._id) {
+        delete submitData._id;
+      }
+
+      // Ensure numeric values are numbers, not strings
+      submitData.order = Number(submitData.order) || 0;
+
+      const url = formData._id ? `/api/sliders/${formData._id}` : '/api/sliders';
+      const method = formData._id ? 'PUT' : 'POST';
+
+      console.log('Submitting slider data:', submitData);
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || error.message || 'Failed to save slider');
+      }
+
+      const savedData = await response.json();
+      console.log('Slider saved successfully:', savedData);
+      onSave(savedData);
+      onClose();
+      toast.success('Slider saved successfully');
+    } catch (error) {
+      console.error('Error saving slider:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to save slider');
     }
-    onSave(submitData);
   };
 
   const handleImageUpload = (imageUrl: string) => {

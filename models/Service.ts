@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 const ServiceSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  image: { type: String, required: true },
-  images: [{ type: String }],
   description: { type: String },
   price: { type: Number, required: true },
+  image: { type: String, required: true },
+  imagePublicId: { type: String },
+  images: [{ type: String }],
+  imagesPublicIds: [{ type: String }],
   locationFrom: { type: String },
   locationTo: { type: String },
-  days: { type: Number, required: true },
-  maxPeople: { type: Number, required: true },
-  itinerary: { type: String },
+  duration: { type: String },
   vehicleId: { 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehicle',
@@ -18,8 +18,8 @@ const ServiceSchema = new mongoose.Schema({
   },
   status: { 
     type: String, 
-    default: 'available',
-    enum: ['available', 'booked', 'maintenance'] 
+    default: 'active',
+    enum: ['active', 'inactive'] 
   }
 }, {
   timestamps: true
