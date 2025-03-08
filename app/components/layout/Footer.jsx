@@ -85,7 +85,7 @@ const Footer = () => {
                 }}></span>
               </a>
             )}
-             <a href="https://www.tiktok.com/@sato_japan_tours?_t=8sLAr1ZXknf&_r=1" target="_blank" rel="noopener noreferrer"
+             <a href="https://www.tiktok.com/@sato_japan_tours36?_t=ZS-8uU7ctY5qbg&_r=1" target="_blank" rel="noopener noreferrer"
                 className="Btn relative"
                 data-aos="fade-up"
                 data-aos-duration="3000"
